@@ -1,0 +1,25 @@
+
+name: Student Information CI Pipeline
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@v4
+
+      - name: Verify application files
+        run: |
+          test -f index.html
+          test -f Dockerfile
+          echo "Application files verified successfully"
+
+      - name: Build Docker image
+        run: docker build -t student-info-devops .
